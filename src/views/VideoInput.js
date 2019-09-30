@@ -74,13 +74,13 @@ class VideoInput extends Component {
 
 
 
-          fullDesc.map(fd => {
-            this.setState({
-            faceData:this.state.faceData==null?fd.descriptor:this.state.faceData  
-            })
-            console.log(">>"+fd.descriptor);
+          // fullDesc.map(fd => {
+          //   this.setState({
+          //   faceData:this.state.faceData==null?fd.descriptor:this.state.faceData  
+          //   })
+          //   console.log(">>"+fd.descriptor);
             
-          })
+          // })
           
         }
       });
