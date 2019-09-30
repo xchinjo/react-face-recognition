@@ -6,7 +6,7 @@ import { loadModels, getFullFaceDescription, createMatcher } from '../api/face';
 // Import face profile
 const JSON_PROFILE = require('../descriptors/bnk48.json');
 
-const WIDTH = 420;
+const WIDTH = 420; //420
 const HEIGHT = 420;
 const inputSize = 160;
 
@@ -20,7 +20,8 @@ class VideoInput extends Component {
       descriptors: null,
       faceMatcher: null,
       match: null,
-      facingMode: null
+      facingMode: null,
+      faceData:null,
     };
   }
 
@@ -64,11 +65,23 @@ class VideoInput extends Component {
         this.webcam.current.getScreenshot(),
         inputSize
       ).then(fullDesc => {
-        if (!!fullDesc) {
+        if (!!fullDesc) {          
           this.setState({
             detections: fullDesc.map(fd => fd.detection),
             descriptors: fullDesc.map(fd => fd.descriptor)
+                      
           });
+
+
+
+          fullDesc.map(fd => {
+            this.setState({
+            faceData:this.state.faceData==null?fd.descriptor:this.state.faceData  
+            })
+            console.log(">>"+fd.descriptor);
+            
+          })
+          
         }
       });
 
@@ -147,7 +160,7 @@ class VideoInput extends Component {
           alignItems: 'center'
         }}
       >
-        <p>Camera: {camera}</p>
+        <p>Camera: {camera}</p>        
         <div
           style={{
             width: WIDTH,
@@ -170,6 +183,10 @@ class VideoInput extends Component {
             {!!drawBox ? drawBox : null}
           </div>
         </div>
+        <textarea name="body"
+                 // onChange={this.handleChange}
+                  value={this.state.faceData}/>        
+        
       </div>
     );
   }
